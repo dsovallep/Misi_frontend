@@ -3,7 +3,7 @@ import PortfolioList from './components/PortfolioList.js';
 import ShareList from './components/ShareList.js';
 import TransactionList from './components/TransactionList.js';
 import TransactionForm from './components/TransactionForm.js';
-
+import PortfolioShareList from './components/PortfolioShareList.js';
 function App() {
   return (
     <div className="App">
@@ -12,21 +12,19 @@ function App() {
       </header>
     
       <main>
-        <section>
-	    <PortfolioList />
-	</section>
 
 	<section>
-          <ShareList />
-        </section>
+           <TransactionList />
+	</section>  
 
         <section>
-          <TransactionList />
-        </section>
+           <PortfolioShareList /> 
+	</section>
 
         <section>
           <TransactionForm />
         </section>
+     
       </main>
     </div>
   );

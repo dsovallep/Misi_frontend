@@ -8,10 +8,13 @@ const TransactionForm = () => {
     portfolio_id: "",
     share_id: "",
     transaction_type: "BUY",
-    quatity: "",
-    price_per_share: "",
+    quantity: "",
+    max_price_per_share: "",
+    total_shares_price: "",
     fees: "",
+    orden_number: "",	  
     notes: "",
+    transaction_date: "",
   });
 
   useEffect(() => {
@@ -55,10 +58,13 @@ const TransactionForm = () => {
         portfolio_id: "",
         share_id: "",
         transaction_type: "BUY",
-        quatity: "",
-        price_per_share: "",
+        quantity: "",
+        max_price_per_share: "",
+        total_shares_price: "",
         fees: "",
+        orden_number: "",
         notes: "",
+        transaction_date: "",
       });
     } catch (error) {
       console.error("Error creating transaction:", error);
@@ -120,20 +126,20 @@ const TransactionForm = () => {
           <label>Quantity:</label>
           <input
             type="number"
-            name="quatity"
-            value={transactionData.quatity}
+            name="quantity"
+            value={transactionData.quantity}
             onChange={handleChange}
             required
           />
         </div>
 
         <div>
-          <label>Price per Share:</label>
+          <label>Max Price per Share:</label>
           <input
             type="number"
             step="0.01"
-            name="price_per_share"
-            value={transactionData.price_per_share}
+            name="max_price_per_share"
+            value={transactionData.max_price_per_share}
             onChange={handleChange}
             required
           />
@@ -144,8 +150,8 @@ const TransactionForm = () => {
 	  <input
 	    type="number"
 	    step="0.01"
-	    name="total_share_price"
-	    value={transactionData.total_share_price}
+	    name="total_shares_price"
+	    value={transactionData.total_shares_price}
 	    onChange={handleChange}
 	    required
 	  />
@@ -161,19 +167,7 @@ const TransactionForm = () => {
             onChange={handleChange}
             required
           />
-        </div>
-        
-	<div>
-          <label>Total Transaction</label>
-          <input
-            type="number"
-            step="0.01"
-            name="total_transaction"
-            value={transactionData.total_transaction}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        </div>    
 
 	<div>
           <label>Transaction Date:</label>

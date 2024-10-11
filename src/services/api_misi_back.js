@@ -21,3 +21,7 @@ export const getTransactions = () => {
 export const createTransaction = (data) => {
     return axios.post(`${API_BASE_URL}/transaction/`, data);  
 };
+
+export const getPortfolioShare = () => {
+    return axios.get(`${API_BASE_URL}/portfolioshare/`);
+};

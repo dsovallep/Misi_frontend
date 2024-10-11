@@ -23,7 +23,11 @@ const TransactionList = () => {
                 <ul>
                     {transaction.map((transaction) => (
 			    <li key={transaction.id}>
-			        {transaction.transaction_type} {transaction.quatity} shares_id of {transaction.share_id} at {transaction.price_per_share} per share in {transaction.portfolio_id} portfolio_id.
+			        <strong> Share id </strong> {transaction.share_id}
+			        <strong> Type transaction </strong> {transaction.transaction_type}
+			        <strong> Number of shares </strong> {transaction.quantity} 
+			        <strong> Price per share </strong> {transaction.max_price_per_share}
+			        <strong> Total shares price </strong> {transaction.total_shares_price}
 			    </li>
 		    ))}
 		</ul>
