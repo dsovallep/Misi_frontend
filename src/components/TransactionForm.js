@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { createTransaction, getPortfolios, getShares } from "../services/api_misi_back.js";
+import { createTransaction, getPortfolios, getShares } from "../services/api_misi_back";
+import { TextField, Button, MenuItem, Select, InputLabel, FormControl, Grid, Typography, Box } from "@mui/material";
 
 const TransactionForm = () => {
   const [portfolios, setPortfolios] = useState([]);
@@ -12,7 +13,7 @@ const TransactionForm = () => {
     max_price_per_share: "",
     total_shares_price: "",
     fees: "",
-    orden_number: "",	  
+    orden_number: "",
     notes: "",
     transaction_date: "",
   });
@@ -73,136 +74,168 @@ const TransactionForm = () => {
   };
 
   return (
-    <div>
-      <h2>Create a Transaction</h2>
+    <Box p={3}>
+      <Typography variant="h5" gutterBottom>
+        Create a Transaction
+      </Typography>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Portfolio:</label>
-          <select
-            name="portfolio_id"
-            value={transactionData.portfolio_id}
-            onChange={handleChange}
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth required>
+              <InputLabel id="portfolio-label">Portfolio</InputLabel>
+              <Select
+                labelId="portfolio-label"
+                name="portfolio_id"
+                value={transactionData.portfolio_id}
+                onChange={handleChange}
+              >
+                <MenuItem value="">
+                  <em>Select Portfolio</em>
+                </MenuItem>
+                {portfolios.map((portfolio) => (
+                  <MenuItem key={portfolio.id} value={portfolio.id}>
+                    {portfolio.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth required>
+              <InputLabel id="share-label">Share</InputLabel>
+              <Select
+                labelId="share-label"
+                name="share_id"
+                value={transactionData.share_id}
+                onChange={handleChange}
+              >
+                <MenuItem value="">
+                  <em>Select Share</em>
+                </MenuItem>
+                {shares.map((share) => (
+                  <MenuItem key={share.id} value={share.id}>
+                    {share.name} ({share.symbol})
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth required>
+              <InputLabel id="transaction-type-label">Transaction Type</InputLabel>
+              <Select
+                labelId="transaction-type-label"
+                name="transaction_type"
+                value={transactionData.transaction_type}
+                onChange={handleChange}
+              >
+                <MenuItem value="BUY">Buy</MenuItem>
+                <MenuItem value="SELL">Sell</MenuItem>
+              </Select>
+            </FormControl>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
             required
-          >
-            <option value="">Select Portfolio</option>
-            {portfolios.map((portfolio) => (
-              <option key={portfolio.id} value={portfolio.id}>
-                {portfolio.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label>Share:</label>
-          <select
-            name="share_id"
-            value={transactionData.share_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Share</option>
-            {shares.map((share) => (
-              <option key={share.id} value={share.id}>
-                {share.name} ({share.symbol})
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label>Transaction Type:</label>
-          <select
-            name="transaction_type"
-            value={transactionData.transaction_type}
-            onChange={handleChange}
-          >
-            <option value="BUY">Buy</option>
-            <option value="SELL">Sell</option>
-	  </select>
-        </div>
-
-        <div>
-          <label>Quantity:</label>
-          <input
+            label="Quantity"
             type="number"
             name="quantity"
             value={transactionData.quantity}
             onChange={handleChange}
-            required
           />
-        </div>
+        </Grid>
 
-        <div>
-          <label>Max Price per Share:</label>
-          <input
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            required
+            label="Max Price per Share"
             type="number"
             step="0.01"
             name="max_price_per_share"
             value={transactionData.max_price_per_share}
             onChange={handleChange}
-            required
           />
-        </div>
-        
-	<div>
-          <label>Total share price:</label>
-	  <input
-	    type="number"
-	    step="0.01"
-	    name="total_shares_price"
-	    value={transactionData.total_shares_price}
-	    onChange={handleChange}
-	    required
-	  />
-	</div>
-        
-	<div>
-          <label>Fees:</label>
-          <input
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            required
+            label="Total Shares Price"
+            type="number"
+            step="0.01"
+            name="total_shares_price"
+            value={transactionData.total_shares_price}
+            onChange={handleChange}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            required
+            label="Fees"
             type="number"
             step="0.01"
             name="fees"
             value={transactionData.fees}
             onChange={handleChange}
-            required
           />
-        </div>    
+        </Grid>
 
-	<div>
-          <label>Transaction Date:</label>
-	  <input
-	    type="date"
-	    name="transaction_date"
-	    value={transactionData.transaction_date}
-	    onChange={handleChange}
-	    required
-	  />
-	</div>
-     
-	<div>
-          <label>Order Number:</label>
-          <input
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            required
+            label="Transaction Date"
+            type="date"
+            name="transaction_date"
+            value={transactionData.transaction_date}
+            onChange={handleChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            required
+            label="Order Number"
             type="text"
             name="orden_number"
             value={transactionData.orden_number}
             onChange={handleChange}
-            required
           />
-        </div>
-	<div>
-          <label>Notes:</label>
-          <textarea
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Notes"
+            multiline
+            rows={4}
             name="notes"
             value={transactionData.notes}
             onChange={handleChange}
           />
-        </div>
+        </Grid>
 
-        <button type="submit">Submit Transaction</button>
-      </form>
-    </div>
+        <Grid item xs={12}>
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Submit Transaction
+          </Button>
+        </Grid>
+      </Grid>
+    </form>
+  </Box>
   );
 };
 
-export default TransactionForm;
+export default TransactionForm; 

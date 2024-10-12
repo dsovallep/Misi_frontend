@@ -1,32 +1,35 @@
 import React from 'react';
-import PortfolioList from './components/PortfolioList.js';
-import ShareList from './components/ShareList.js';
-import TransactionList from './components/TransactionList.js';
-import TransactionForm from './components/TransactionForm.js';
-import PortfolioShareList from './components/PortfolioShareList.js';
+import { Container, Grid, Box, Typography } from '@mui/material';
+import TransactionList from './components/TransactionList';
+import PortfolioShareList from './components/PortfolioShareList';
+import TransactionForm from './components/TransactionForm';
+
 function App() {
   return (
-    <div className="App">
-      <header>
-	  <h1>Stock Portfolio Tracker</h1>
-      </header>
-    
-      <main>
+    <Container>
+      <Box sx={{ textAlign: 'center', padding: '20px 0' }}>
+        <Typography variant="h3" component="h1" gutterBottom>
+          Stock Portfolio Tracker
+        </Typography>
+      </Box>
 
-	<section>
-           <TransactionList />
-	</section>  
+      <Grid container spacing={2}>
+        {/* Left Half: PortfolioShareList and TransactionForm */}
+        <Grid item xs={12} md={6}>
+          <Box sx={{ marginBottom: '20px' }}>
+            <PortfolioShareList />
+          </Box>
+          <Box>
+            <TransactionForm />
+          </Box>
+        </Grid>
 
-        <section>
-           <PortfolioShareList /> 
-	</section>
-
-        <section>
-          <TransactionForm />
-        </section>
-     
-      </main>
-    </div>
+        {/* Right Half: TransactionList */}
+        <Grid item xs={12} md={6}>
+          <TransactionList />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

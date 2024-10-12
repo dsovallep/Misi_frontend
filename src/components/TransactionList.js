@@ -1,38 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { getTransactions } from "../services/api_misi_back.js";
+import { getTransactions } from "../services/api_misi_back";
+import { Card, CardContent, Typography, List, ListItem, Divider } from "@mui/material";
 
 const TransactionList = () => {
-        const [transaction, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
-	useEffect(() => {
-		fetchTransactions();             
-	}, []);
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
 
-	const fetchTransactions = async() => {
-		try {
-			const response = await getTransactions();
-			setTransactions(response.data);
-		} catch (error) {
-                       console.error("Error fetching transaction", error);
-		}
-	};
+  const fetchTransactions = async () => {
+    try {
+      const response = await getTransactions();
+      // Reverse the transactions array to show the most recent transaction first
+      setTransactions(response.data.reverse());
+    } catch (error) {
+      console.error("Error fetching transactions", error);
+    }
+  };
 
-	return(
-            <div>
-		<h2>Transaction</h2>
-                <ul>
-                    {transaction.map((transaction) => (
-			    <li key={transaction.id}>
-			        <strong> Share id </strong> {transaction.share_id}
-			        <strong> Type transaction </strong> {transaction.transaction_type}
-			        <strong> Number of shares </strong> {transaction.quantity} 
-			        <strong> Price per share </strong> {transaction.max_price_per_share}
-			        <strong> Total shares price </strong> {transaction.total_shares_price}
-			    </li>
-		    ))}
-		</ul>
-	    </div>
-	);
+  return (
+    <Card>
+      <CardContent>
+        <Typography variant="h5" gutterBottom>
+          Transactions
+        </Typography>
+        <List>
+          {transactions.map((transaction) => (
+            <React.Fragment key={transaction.id}>
+              <ListItem>
+                <Typography variant="body1">
+                  <strong>Share ID:</strong> {transaction.share_id} <br />
+                  <strong>Type:</strong> {transaction.transaction_type} <br />
+                  <strong>Quantity:</strong> {transaction.quantity} <br />
+                  <strong>Price per Share:</strong> {transaction.max_price_per_share} <br />
+                  <strong>Total Price:</strong> {transaction.total_shares_price}
+                </Typography>
+              </ListItem>
+              <Divider />
+            </React.Fragment>
+          ))}
+        </List>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default TransactionList;
