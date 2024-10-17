@@ -31,11 +31,13 @@ const TransactionList = () => {
               <ListItem>
                 <Typography variant="body1">
                   <strong>Share ID:</strong> {transaction.share_id} <br />
+		  <strong>Share Name:</strong> {transaction.share_name} <br />
                   <strong>Type:</strong> {transaction.transaction_type} <br />
                   <strong>Quantity:</strong> {transaction.quantity} <br />
                   <strong>Price per Share:</strong> {transaction.max_price_per_share} <br />
-                  <strong>Total Price:</strong> {transaction.total_shares_price}
-                </Typography>
+                  <strong>Total Price:</strong> {transaction.total_shares_price} <br />
+                  <strong>Creation:</strong> {transaction.created_at}
+		</Typography>
               </ListItem>
               <Divider />
             </React.Fragment>
