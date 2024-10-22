@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createTransaction, getPortfolios, getShares } from "../services/api_misi_back";
 import { TextField, Button, MenuItem, Select, InputLabel, FormControl, Grid, Typography, Box } from "@mui/material";
 
-const TransactionForm = () => {
+const TransactionForm = ({ onNewTransaction }) => {
   const [portfolios, setPortfolios] = useState([]);
   const [shares, setShares] = useState([]);
   const [transactionData, setTransactionData] = useState({
@@ -54,7 +54,11 @@ const TransactionForm = () => {
     try {
       await createTransaction(transactionData);
       alert("Transaction created successfully!");
-      // Optionally reset the form
+      // Llamar a la función que refresca las transacciones
+      if (onNewTransaction) {
+        onNewTransaction();
+      }
+      // Opcionalmente, resetear el formulario
       setTransactionData({
         portfolio_id: "",
         share_id: "",
@@ -135,107 +139,107 @@ const TransactionForm = () => {
                 <MenuItem value="SELL">Sell</MenuItem>
               </Select>
             </FormControl>
-        </Grid>
+          </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            required
-            label="Quantity"
-            type="number"
-            name="quantity"
-            value={transactionData.quantity}
-            onChange={handleChange}
-          />
-        </Grid>
+           <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              label="Quantity"
+              type="number"
+              name="quantity"
+              value={transactionData.quantity}
+              onChange={handleChange}
+            />
+          </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            required
-            label="Max Price per Share"
-            type="number"
-            step="0.01"
-            name="max_price_per_share"
-            value={transactionData.max_price_per_share}
-            onChange={handleChange}
-          />
-        </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              label="Max Price per Share"
+              type="number"
+              step="0.01"
+              name="max_price_per_share"
+              value={transactionData.max_price_per_share}
+              onChange={handleChange}
+            />
+          </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            required
-            label="Total Shares Price"
-            type="number"
-            step="0.01"
-            name="total_shares_price"
-            value={transactionData.total_shares_price}
-            onChange={handleChange}
-          />
-        </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              label="Total Shares Price"
+              type="number"
+              step="0.01"
+              name="total_shares_price"
+              value={transactionData.total_shares_price}
+              onChange={handleChange}
+            />
+          </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            required
-            label="Fees"
-            type="number"
-            step="0.01"
-            name="fees"
-            value={transactionData.fees}
-            onChange={handleChange}
-          />
-        </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              label="Fees"
+              type="number"
+              step="0.01"
+              name="fees"
+              value={transactionData.fees}
+              onChange={handleChange}
+            />
+          </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            required
-            label="Transaction Date"
-            type="date"
-            name="transaction_date"
-            value={transactionData.transaction_date}
-            onChange={handleChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              label="Transaction Date"
+              type="date"
+              name="transaction_date"
+              value={transactionData.transaction_date}
+              onChange={handleChange}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            required
-            label="Order Number"
-            type="text"
-            name="orden_number"
-            value={transactionData.orden_number}
-            onChange={handleChange}
-          />
-        </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              label="Order Number"
+              type="text"
+              name="orden_number"
+              value={transactionData.orden_number}
+              onChange={handleChange}
+            />
+          </Grid>
 
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="Notes"
-            multiline
-            rows={4}
-            name="notes"
-            value={transactionData.notes}
-            onChange={handleChange}
-          />
-        </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Notes"
+              multiline
+              rows={4}
+              name="notes"
+              value={transactionData.notes}
+              onChange={handleChange}
+            />
+          </Grid>
 
-        <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Submit Transaction
-          </Button>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Submit Transaction
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </form>
-  </Box>
+      </form>
+    </Box>
   );
 };
 
-export default TransactionForm; 
+export default TransactionForm;  
