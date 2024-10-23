@@ -9,7 +9,7 @@ const PortfolioShareList = () => {
     const fetchPortfolioShare = async () => {
         try {
             const response = await getPortfolioShare();
-            setPortShares(response.data);
+	    setPortShares(response.data);
         } catch (error) {
             console.error('Error fetching data from PortfolioShareList: ', error);
         }
@@ -61,9 +61,12 @@ const PortfolioShareList = () => {
 	        </Typography>
                 <List>
                     {sortedPortShares.map((ps) => (
-                        <React.Fragment key={ps.id}>
+	  	        <React.Fragment key={ps.id}>
                             <ListItem>
                                 <Box>
+			            <Typography variant="body1">
+			                <strong>share simbol:</strong> {ps.share_symbol}
+			            </Typography>
                                     <Typography variant="body1">
                                         <strong>share name:</strong> {ps.share_name}
                                     </Typography>
